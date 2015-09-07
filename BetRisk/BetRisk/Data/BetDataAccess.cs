@@ -7,21 +7,25 @@ using BetRisk.Domain;
 
 namespace BetRisk.Data
 {
-    public class BetDataAccess
+    public class BetDataAccess : IBetDataAccess
     {
         public IEnumerable<Bet> GetForCustomer(int customerId)
         {
             return GetSettledBets().Concat(GetUnsettledBets()).Where(bet => bet.CustomerId == customerId);
         }
 
-        private List<Bet> GetSettledBets()
+        public IEnumerable<Bet> GetSettledBets()
         {
-            return GetBetData("Settled");
+            List<Bet> betData = GetBetData("Settled");
+            betData.ForEach(bet => bet.BetStatus = BetStatus.Settled);
+            return betData;
         }
 
-        private List<Bet> GetUnsettledBets()
+        public IEnumerable<Bet> GetUnsettledBets()
         {
-            return GetBetData("Unsettled");
+            List<Bet> betData = GetBetData("Unsettled");
+            betData.ForEach(bet => bet.BetStatus = BetStatus.Unsettled);
+            return betData;
         }
 
         private List<Bet> GetBetData(string filename)
