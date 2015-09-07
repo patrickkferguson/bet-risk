@@ -39,7 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\BetDataAccess.cs" />
+    <Compile Include="Data\IBetDataAccess.cs" />
+    <Compile Include="Domain\Bet.cs" />
+    <Compile Include="Domain\BetStatus.cs" />
+    <Compile Include="Domain\Customer.cs" />
+    <Compile Include="Domain\BetRiskStatus.cs" />
+    <Compile Include="Domain\CustomerRiskStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\BetRiskReasonResourceManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Settled.csv" />
+    <EmbeddedResource Include="Data\Unsettled.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
