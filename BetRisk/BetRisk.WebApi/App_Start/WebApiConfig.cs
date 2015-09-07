@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace BetRisk.WebApi
 {
@@ -10,6 +11,10 @@ namespace BetRisk.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
+
+            config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

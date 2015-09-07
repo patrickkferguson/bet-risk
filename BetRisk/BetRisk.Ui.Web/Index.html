@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="betRisk">
+<head>
+    <title>BetRisk</title>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/BetRisk.js"></script>
+    <link rel="stylesheet" href="Content/bootstrap.css">
+</head>
+<body>
+    <h1>BetRisk</h1>
+
+    <div ng-controller="CustomerController" ng-init="getCustomers()">
+        <div>{{message}}</div>
+        <button ng-click="getCustomers()">Show all customers</button>
+        <button ng-click="getBets()">Show all bets</button>
+        <ul>
+            <li ng-repeat="customer in customers">
+                <span>{{customer.id}}</span>
+                <button ng-click="getBets(customer.id)">Show bets</button>
+            </li>
+        </ul>
+        <ul>
+            <li ng-repeat="bet in bets">
+                <span>Stake: {{bet.stake}}</span>
+                <span>Win: {{bet.win}}</span>
+                <span>Status: {{bet.betStatus}}</span>
+                <span>Risk: {{bet.betRiskStatus}}</span>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
