@@ -9,20 +9,44 @@ namespace BetRisk
     {
         private readonly IBetDataAccess _betDataAccess;
         private readonly ICustomerRiskCalculator _customerRiskCalculator;
+        private readonly IBetRiskCalculator _betRiskCalculator;
 
-        public RiskService(IBetDataAccess betDataAccess, ICustomerRiskCalculator customerRiskCalculator)
+        public RiskService(IBetDataAccess betDataAccess, ICustomerRiskCalculator customerRiskCalculator, IBetRiskCalculator betRiskCalculator)
         {
             _betDataAccess = betDataAccess;
             _customerRiskCalculator = customerRiskCalculator;
+            _betRiskCalculator = betRiskCalculator;
         }
 
         public List<Customer> GetCustomerSummary()
         {
-            List<Bet> allBets = _betDataAccess.GetSettledBets().Concat(_betDataAccess.GetUnsettledBets()).ToList();
+            List<Bet> allBets = GetAllBets();
 
             var betsByCustomer = allBets.GroupBy(bet => bet.CustomerId);
 
             return betsByCustomer.Select(BuildCustomer).ToList();
+        }
+
+        public List<Bet> GetBets(int? customerId)
+        {
+            // TODO: This method will have poor performance for large data sets - refactor to improve performance.
+            List<Bet> bets = customerId.HasValue
+                ? _betDataAccess.GetForCustomer(customerId.Value).ToList()
+                : GetAllBets();
+
+            Dictionary<int, Customer> allCustomers = GetCustomerSummary().ToDictionary(customer => customer.Id);
+
+            foreach (Bet bet in bets)
+            {
+                _betRiskCalculator.DetermineBetRiskStatus(bet, allCustomers[bet.CustomerId], bets.Where(b => b.CustomerId == bet.CustomerId).ToList());
+            }
+
+            return bets;
+        }
+
+        private List<Bet> GetAllBets()
+        {
+            return _betDataAccess.GetSettledBets().Concat(_betDataAccess.GetUnsettledBets()).ToList();
         }
 
         private Customer BuildCustomer(IGrouping<int, Bet> bets)

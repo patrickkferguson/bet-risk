@@ -1,9 +1,10 @@
-﻿using BetRisk.Domain;
+﻿using System.Collections.Generic;
+using BetRisk.Domain;
 
 namespace BetRisk
 {
     public interface IBetRiskCalculator
     {
-        void DeterminBetRiskStatus(Bet bet);
+        void DetermineBetRiskStatus(Bet bet, Customer customer, List<Bet> customerBetHistory);
     }
 }

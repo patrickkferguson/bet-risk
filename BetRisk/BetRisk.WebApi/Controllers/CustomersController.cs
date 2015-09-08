@@ -7,16 +7,17 @@ namespace BetRisk.WebApi.Controllers
 {
     public class CustomersController : ApiController
     {
+        private readonly IRiskService _riskService;
+
+        public CustomersController(IRiskService riskService)
+        {
+            _riskService = riskService;
+        }
+
         [EnableCors(origins: "http://localhost:63866", headers: "*", methods: "*")]
         public IHttpActionResult Get()
         {
-            List<Customer> customers = new List<Customer>();
-
-            customers.Add(new Customer() { Id = 1, CustomerRiskStatus = CustomerRiskStatus.Normal, RiskReason = null });
-            customers.Add(new Customer() { Id = 2, CustomerRiskStatus = CustomerRiskStatus.High, RiskReason = "Too many wins" });
-            customers.Add(new Customer() { Id = 3, CustomerRiskStatus = CustomerRiskStatus.Normal, RiskReason = null });
-            customers.Add(new Customer() { Id = 4, CustomerRiskStatus = CustomerRiskStatus.High, RiskReason = "Too many wins" });
-
+            List<Customer> customers = _riskService.GetCustomerSummary();
 
             return Ok(new Result<List<Customer>>(true, null, customers));
         }
