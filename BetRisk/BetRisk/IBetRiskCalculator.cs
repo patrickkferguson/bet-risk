@@ -5,6 +5,6 @@ namespace BetRisk
 {
     public interface IBetRiskCalculator
     {
-        void DetermineBetRiskStatus(Bet bet, Customer customer, List<Bet> customerBetHistory);
+        void DetermineBetRiskStatus(Bet bet, Customer customer);
     }
 }

@@ -38,7 +38,7 @@ namespace BetRisk
 
             foreach (Bet bet in bets)
             {
-                _betRiskCalculator.DetermineBetRiskStatus(bet, allCustomers[bet.CustomerId], bets.Where(b => b.CustomerId == bet.CustomerId).ToList());
+                _betRiskCalculator.DetermineBetRiskStatus(bet, allCustomers[bet.CustomerId]);
             }
 
             return bets;
