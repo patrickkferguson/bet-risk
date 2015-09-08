@@ -5,7 +5,7 @@ using BetRisk.Domain;
 
 namespace BetRisk
 {
-    public class RiskService
+    public class RiskService : IRiskService
     {
         private readonly IBetDataAccess _betDataAccess;
         private readonly ICustomerRiskCalculator _customerRiskCalculator;

@@ -13,7 +13,7 @@ angular.module('betRisk', [])
             $scope.bets = [];
             var url = baseApiUrl + "Customers";
             $http.get(url).success(function (data, status, headers, config) {
-                $scope.customers = data.customers;
+                $scope.customers = data.data;
                 $scope.message = "Loaded customers";
             }).error(function (data, status, headers, config) {
                 $scope.message = data.message;
@@ -28,7 +28,7 @@ angular.module('betRisk', [])
                 url += "?customerId=" + customerId;
             }
             $http.get(url).success(function (data, status, headers, config) {
-                $scope.bets = data.bets;
+                $scope.bets = data.data;
                 $scope.message = "Loaded bets";
             }).error(function (data, status, headers, config) {
                 $scope.message = data.message;

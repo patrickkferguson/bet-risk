@@ -8,8 +8,9 @@ To run, load the BetRisk solution and start BetRisk.WebApi and BetRisk.Ui.Web. I
 
 ### TODO:
 * Application logic
-* Configure DI
+* --Configure DI--
 * Connect controllers to application logic
+* More test coverage
 * UI styling
 * JS testing
 * Secure the web API

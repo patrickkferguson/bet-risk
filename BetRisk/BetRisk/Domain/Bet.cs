@@ -14,7 +14,11 @@
 
         public BetStatus BetStatus { get; set; }
 
+        public string BetStatusLabel { get { return BetStatus.ToString(); } }
+
         public BetRiskStatus BetRiskStatus { get; set; }
+
+        public string BetRiskStatusLabel { get { return BetRiskStatus.ToString(); } }
 
         public string RiskReason { get; set; }
     }

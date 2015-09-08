@@ -22,6 +22,8 @@
 
         public CustomerRiskStatus CustomerRiskStatus { get; set; }
 
+        public string CustomerRiskStatusLabel { get { return CustomerRiskStatus.ToString(); } }
+
         public string RiskReason { get; set; }
     }
 }

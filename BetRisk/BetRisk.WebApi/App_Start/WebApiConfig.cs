@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using BetRisk.Data;
+using Castle.Windsor;
+using Castle.MicroKernel.Registration;
 using Newtonsoft.Json.Serialization;
 
 namespace BetRisk.WebApi
@@ -23,6 +23,24 @@ namespace BetRisk.WebApi
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}"
             );
+
+            IWindsorContainer container = new WindsorContainer();
+
+            container.Register(
+                Classes
+                    .FromThisAssembly()
+                    .BasedOn<ApiController>()
+                    .LifestyleScoped()
+                );
+
+            container.Register(
+                Component.For<IBetDataAccess>().ImplementedBy<BetDataAccess>(),
+                Component.For<IBetRiskCalculator>().ImplementedBy<BetRiskCalculator>(),
+                Component.For<ICustomerRiskCalculator>().ImplementedBy<CustomerRiskCalculator>(),
+                Component.For<IRiskService>().ImplementedBy<RiskService>()
+                );
+
+            config.DependencyResolver = new WindsorDependencyResolver(container.Kernel);
         }
     }
 }

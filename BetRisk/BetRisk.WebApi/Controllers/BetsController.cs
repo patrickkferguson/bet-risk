@@ -23,7 +23,7 @@ namespace BetRisk.WebApi.Controllers
                 bets = bets.Where(bet => bet.CustomerId == customerId).ToList();
             }
 
-            return Ok(new { Success = true, Bets = bets });
+            return Ok(new Result<List<Bet>>(true, null, bets));
         }
     }
 }

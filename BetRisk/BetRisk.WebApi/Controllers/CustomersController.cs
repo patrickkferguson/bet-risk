@@ -18,7 +18,7 @@ namespace BetRisk.WebApi.Controllers
             customers.Add(new Customer() { Id = 4, CustomerRiskStatus = CustomerRiskStatus.High, RiskReason = "Too many wins" });
 
 
-            return Ok(new { Success = true, Customers = customers });
+            return Ok(new Result<List<Customer>>(true, null, customers));
         }
     }
 }

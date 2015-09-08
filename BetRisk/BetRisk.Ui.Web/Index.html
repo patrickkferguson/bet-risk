@@ -15,7 +15,17 @@
         <button ng-click="getBets()">Show all bets</button>
         <ul>
             <li ng-repeat="customer in customers">
-                <span>{{customer.id}}</span>
+                <span>Customer: {{customer.id}}</span>
+                <span>Total bets: {{customer.totalNumberOfBets}}</span>
+                <span>Total settled bets: {{customer.numberOfSettledBets}}</span>
+                <span>Total unsettled bets: {{customer.numberOfUnsettledBets}}</span>
+                <span>Total winning bets: {{customer.numberOfWinningBets}}</span>
+                <span>Total settled stake: {{customer.totalSettledStake}}</span>
+                <span>Total settled win: {{customer.totalSettledWin}}</span>
+                <span>Total unsettled stake: {{customer.totalUnsettledStake}}</span>
+                <span>Total unsettled win: {{customer.totalUnsettledWin}}</span>
+                <span>Risk status: {{customer.customerRiskStatusLabel}}</span>
+                <span>Reason: {{customer.riskReason}}</span>
                 <button ng-click="getBets(customer.id)">Show bets</button>
             </li>
         </ul>
@@ -23,8 +33,9 @@
             <li ng-repeat="bet in bets">
                 <span>Stake: {{bet.stake}}</span>
                 <span>Win: {{bet.win}}</span>
-                <span>Status: {{bet.betStatus}}</span>
-                <span>Risk: {{bet.betRiskStatus}}</span>
+                <span>Status: {{bet.betStatusLabel}}</span>
+                <span>Risk: {{bet.betRiskStatusLabel}}</span>
+                <span>Reason: {{bet.riskReason}}</span>
             </li>
         </ul>
     </div>
